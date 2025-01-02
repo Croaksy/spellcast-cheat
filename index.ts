@@ -1,1 +1,3 @@
-console.log("Hello via Bun!");
+import { waitForUI } from "./lib/ui";
+
+waitForUI.then((ui) => (ui.status = "WIP"));
