@@ -9,6 +9,6 @@
     "typescript": "^5.0.0"
   },
   "scripts": {
-    "build": "bun build index.ts --target=browser --minify --outfile=dist/spellcast-cheat.userscript.js"
+    "build": "bun build index.ts --target=browser --banner \"$(cat header.txt)\" --minify --outfile=dist/spellcast-cheat.userscript.js"
   }
 }
