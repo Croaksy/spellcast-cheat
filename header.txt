@@ -3,8 +3,9 @@
 // @namespace    http://tampermonkey.net/
 // @version      Beta
 // @description  try to take over the world!
-// @author       You
+// @author       Croaksy
 // @run-at       document-start
 // @match        https://852509694341283871.discordsays.com/
 // @grant        unsafeWindow
+// @copyright    (c) 2025 Croaksy, MIT license
 // ==/UserScript==
