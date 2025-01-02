@@ -1,6 +1,6 @@
 # TODO
 
-- [ ] Build system
+- [x] Build system
 - [ ] UI
 - [ ] Discord-less login
 - [ ] Automatically playing best words
