@@ -1,6 +1,29 @@
 import { Pane, TextBladeApi } from "tweakpane";
 import { waitForValue } from "./utils";
 
+/**
+ * Config.
+ * It it set to default values initially.
+ */
+export const CONFIG = {
+  discordless: false,
+};
+
+let savedConfigString;
+if (localStorage && (savedConfigString = localStorage.getItem("sc-config"))) {
+  try {
+    let savedConfig = JSON.parse(savedConfigString);
+    for (let key in CONFIG) {
+      if (typeof savedConfig[key] !== "undefined") {
+        // @ts-ignore
+        CONFIG[key] = savedConfig[key];
+      }
+    }
+  } catch {
+    console.warn("Failed to load saved config:", savedConfigString);
+  }
+}
+
 // Waiting for document body instead of changing @run-at, because we still need document-start to inject stuff before game loads.
 export const waitForUI = waitForValue(() => document.body).then(
   () =>
@@ -25,6 +48,16 @@ export const waitForUI = waitForValue(() => document.body).then(
           value: "Loading...",
           disabled: true,
         }) as TextBladeApi<any>;
+        let discordlessFolder = this.pane.addFolder({ title: "Discord-less" });
+        discordlessFolder.addBinding(CONFIG, "discordless", {
+          label: "enabled",
+        });
+
+        this.pane.on("change", () => {
+          try {
+            localStorage.setItem("sc-config", JSON.stringify(CONFIG));
+          } catch {}
+        });
       }
 
       set status(value: string) {
