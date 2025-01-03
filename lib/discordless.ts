@@ -1,3 +1,4 @@
+import { CONFIG } from "./ui";
 import { waitForValue } from "./utils";
 
 /**
@@ -21,16 +22,18 @@ function XSDiscordPatch() {
   waitForValue(() => unsafeWindow?.XS?.Discord).then((x) => {
     x._state.authenticated = true;
     x._state.joined_activity = true;
-    // TODO: Let user change fake ID, name & channel ID.
     x.data = {
-      avatar: "",
-      discriminator: "",
-      icon: "",
-      id: Math.floor(Math.random() * Number.MAX_SAFE_INTEGER).toString(),
-      public_flags: 0,
-      username: "Frog",
+      user: {
+        avatar: "",
+        discriminator: "",
+        icon: "",
+        id: CONFIG.discordlessFakeID,
+        public_flags: 0,
+        username: CONFIG.discordlessFakeName,
+      },
     };
-    x.getChannelID = (cb: (x: string) => void) => cb("123456789012345678");
+    x.getChannelID = (cb: (x: string) => void) =>
+      cb(CONFIG.discordlessFakeChannel);
   });
 }
 

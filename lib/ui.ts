@@ -7,6 +7,12 @@ import { waitForValue } from "./utils";
  */
 export const CONFIG = {
   discordless: false,
+  discordlessFakeName: "Frog",
+  // Making default value random instead of hardcoded so everyone on Discord-less doesn't get the same "account" by default.
+  discordlessFakeID: Math.floor(
+    Math.random() * Number.MAX_SAFE_INTEGER
+  ).toString(),
+  discordlessFakeChannel: "123456789012345678",
 };
 
 let savedConfigString;
@@ -49,10 +55,40 @@ export const waitForUI = waitForValue(() => document.body).then(
           disabled: true,
         }) as TextBladeApi<any>;
         let discordlessFolder = this.pane.addFolder({ title: "Discord-less" });
-        discordlessFolder.addBinding(CONFIG, "discordless", {
-          label: "enabled",
+        let discordlessEnabled = discordlessFolder.addBinding(
+          CONFIG,
+          "discordless",
+          {
+            label: "enabled",
+          }
+        );
+        let discordlessFakeName = discordlessFolder.addBinding(
+          CONFIG,
+          "discordlessFakeName",
+          {
+            label: "fakeName",
+          }
+        );
+        let discordlessFakeID = discordlessFolder.addBinding(
+          CONFIG,
+          "discordlessFakeID",
+          {
+            label: "fakeID",
+          }
+        );
+        let discordlessFakeChannel = discordlessFolder.addBinding(
+          CONFIG,
+          "discordlessFakeChannel",
+          {
+            label: "fakeChannel",
+          }
+        );
+        discordlessEnabled.on("change", (e) => {
+          discordlessFakeName.hidden =
+            discordlessFakeID.hidden =
+            discordlessFakeChannel.hidden =
+              !e.value;
         });
-
         this.pane.on("change", () => {
           try {
             localStorage.setItem("sc-config", JSON.stringify(CONFIG));
