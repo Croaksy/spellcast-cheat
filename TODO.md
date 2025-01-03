@@ -1,8 +1,8 @@
 # TODO
 
 - [x] Build system
-- [ ] UI
-- [ ] Discord-less login
+- [x] UI
+- [x] Discord-less login
 - [ ] Automatically playing best words
   - [ ] Swap move calculation
   - [ ] Multithreading with service workers (or native server?)
