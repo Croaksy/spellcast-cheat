@@ -1,6 +1,5 @@
 // ==UserScript==
 // @name         SpellCast cheat
-// @namespace    http://tampermonkey.net/
 // @version      Beta
 // @description  try to take over the world!
 // @author       Croaksy
